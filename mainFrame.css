@@ -1,5 +1,8 @@
+@import url('chillax-font/css/chillax.css');
+
 body {
-  background-color: #fde992;
+  background-color: #20adfe;
+  font-family: Chillax-Regular, Arial, Helvetica, sans-serif
 }
 
 #briskl {
@@ -8,10 +11,17 @@ body {
 
 #crayon {
   height: 40px;
+  padding-bottom: 30px;
 }
 
-div {
-  display: inline-flexbox;
+#gif {
   text-align: center;
-  background-color: #7fdbff;
+  background-color: #ffd11a;
+  border-radius: 20px;
+}
+
+#regles {
+  border-radius: 20px;
+  background-color: #ffd11a;
+  padding: 10px;
 }
