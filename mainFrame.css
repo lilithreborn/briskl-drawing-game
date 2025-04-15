@@ -1,0 +1,17 @@
+body {
+  background-color: #fde992;
+}
+
+#briskl {
+  height: 100px;
+}
+
+#crayon {
+  height: 40px;
+}
+
+div {
+  display: inline-flexbox;
+  text-align: center;
+  background-color: #7fdbff;
+}
