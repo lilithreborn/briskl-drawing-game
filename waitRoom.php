@@ -1,4 +1,7 @@
 <?php
+
+file_put_contents('data/game_status.json', json_encode(["started" => false]));
+
 $name = $_GET['name'] ?? null;
 if (!$name) {
   echo "Nom manquant.";

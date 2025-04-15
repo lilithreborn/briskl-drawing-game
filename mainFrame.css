@@ -22,7 +22,7 @@ body {
 #regles {
   border-radius: 20px;
   background-color: #ffd11a;
-  box-shadow: 7px 7px;
+  box-shadow: 7px 7px #00000069;
 }
 
 #regles {
@@ -39,7 +39,7 @@ body {
 #nom {
   border-radius: 20px;
   padding: 10px;
-  box-shadow: 7px 7px;
+  box-shadow: 7px 7px #00000069;
 }
 
 #start {

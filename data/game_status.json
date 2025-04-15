@@ -1,1 +1,5 @@
-{"started":true}
+{
+  "started": false,
+  "artist": "Jon-Doe",
+  "word": null
+}
