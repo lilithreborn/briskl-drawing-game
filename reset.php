@@ -1,9 +1,16 @@
 <?php
-// Reset players list
-file_put_contents('data/players.json', json_encode([]));
+// Reset game status
+$gameStatus = [
+  "started" => false,
+  "artist" => "",
+  "word" => null,
+  "chosen" => false,
+  "timer" => 60
+];
+file_put_contents("data/game_status.json", json_encode($gameStatus));
 
-// Set game started = true
-file_put_contents('data/game_status.json', json_encode(["started" => true]));
 
-echo "Game started and lobby reset.";
+file_put_contents("data/players.json", json_encode([]));
+
+echo "Jeu réinitialisé";
 ?>

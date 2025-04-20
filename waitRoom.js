@@ -11,7 +11,7 @@ async function checkGameStatus() {
 }
 
 async function checkPlayers() {
-  const res = await fetch('data/players.json');
+  const res = await fetch("data/players.json?" + Date.now())
   const players = await res.json();
   const list = document.getElementById('players');
   list.innerHTML = '';
@@ -40,7 +40,7 @@ async function checkPlayers() {
 
 async function startGame() {
   await fetch('reset.php');
-  window.location.href = `game.html?name=${encodeURIComponent(playerName)}`;
+  window.location.href = `game.php?name=${encodeURIComponent(playerName)}`;
 }
 
 document.getElementById("start-game").addEventListener("click", startGame);
@@ -48,5 +48,5 @@ document.getElementById("start-game").addEventListener("click", startGame);
 setInterval(() => {
   checkPlayers();
   checkGameStatus();
-}, 1000);
+}, 500);
 

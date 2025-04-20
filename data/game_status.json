@@ -1,5 +1,1 @@
-{
-  "started": false,
-  "artist": "Jon-Doe",
-  "word": null
-}
+{"started":false,"artist":"","word":null,"chosen":false,"timer":60}
