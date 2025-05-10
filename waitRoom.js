@@ -6,7 +6,7 @@ async function checkGameStatus() {
 
   if (status.started && !redirected) {
     redirected = true;
-    window.location.href = `game.html?name=${encodeURIComponent(playerName)}`;
+    window.location.href = `game.php?name=${encodeURIComponent(playerName)}`;
   }
 }
 
@@ -39,9 +39,10 @@ async function checkPlayers() {
 }
 
 async function startGame() {
-  await fetch('reset.php');
+  await fetch('start_game.php');
   window.location.href = `game.php?name=${encodeURIComponent(playerName)}`;
 }
+
 
 document.getElementById("start-game").addEventListener("click", startGame);
 

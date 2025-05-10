@@ -1,5 +1,5 @@
 <?php
-// Reset game status
+
 $gameStatus = [
   "started" => false,
   "artist" => "",
