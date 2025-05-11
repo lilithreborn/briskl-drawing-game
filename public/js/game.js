@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sndbtn = document.getElementById("send");
   const eraser = document.getElementById("erase-button");
   const resetbtn = document.getElementById("reset-button");
-  const info = document.getElementById("info");
+  const word = document.getElementById("word");
   const colorBtns = Array.from(document.getElementsByClassName("bouton-couleur"));
   let isArtist = false;
 
@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (playerName == status.artist) {
       isArtist = true;
       sndbtn.disabled = true;
+      word.innerHTML = "Vous êtes l'artiste ! Vous devez dessiner le mot : " + status.word;
       eraser.disabled = false;
       resetbtn.disabled = false;
       colorBtns.forEach(col => {
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     else {
       isArtist = false;
       sndbtn.disabled = false;
+      word.innerHTML = status.artist + " est l'artiste ! Vous devez deviner le mot qu'il/elle dessine.";
       eraser.disabled = true;
       resetbtn.disabled = true;
       colorBtns.forEach(col => {

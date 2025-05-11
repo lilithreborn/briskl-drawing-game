@@ -19,6 +19,7 @@ $game = json_decode(
   </script>
   <div id="gif"><img id="briskl" src="../media/briskl.gif"> <img id="crayon" src="../media/crayon.gif"></div>
   <h2>A vos crayons !</h2>
+  <p id="word"></p>
 
   <div class="game-container">
     <div class="panel-gauche">
