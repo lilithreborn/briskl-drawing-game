@@ -1,14 +1,12 @@
 <?php
 
-file_put_contents('data/game_status.json', json_encode(["started" => false]));
-
 $name = $_GET['name'] ?? null;
 if (!$name) {
   echo "Nom manquant.";
   exit;
 }
 
-$filename = "data/players.json";
+$filename = "../data/players.json";
 $players = [];
 
 if (file_exists($filename)) {
@@ -27,7 +25,7 @@ if (!in_array($name, $players)) {
 <head>
   <meta charset="UTF-8">
   <title>Salle d'attente</title>
-  <link rel="stylesheet" type="text/css" media="screen" href="waitRoom.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="style/waitRoom.css">
   <script>
     const playerName = <?= json_encode($name); ?>;
   </script>
@@ -39,7 +37,7 @@ if (!in_array($name, $players)) {
   <ul id="players"></ul>
   <button id="start-game" disabled>Commencer le jeu</button>
 
-  <script src="waitRoom.js" defer></script>
+  <script src="js/waitRoom.js" defer></script>
 </body>
 
 </html>

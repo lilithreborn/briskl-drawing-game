@@ -1,22 +1,32 @@
+<?php $currentPlayer = $_GET['name'] ?? 'Anonymous';
+$game = json_decode(
+  file_get_contents("../data/game_status.json"),
+  true
+); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
   <meta charset="UTF-8">
   <title>Jeu</title>
-  <link rel="stylesheet" type="text/css" media="screen" href="game.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="style/game.css">
 </head>
 
 <body>
-  <div id="gif"><img id="briskl" src="media/briskl.gif"> <img id="crayon" src="media/crayon.gif"></div>
+  <script>
+    const playerName = <?= json_encode($currentPlayer); ?>;
+  </script>
+  <div id="gif"><img id="briskl" src="../media/briskl.gif"> <img id="crayon" src="../media/crayon.gif"></div>
   <h2>A vos crayons !</h2>
 
   <div class="game-container">
     <div class="panel-gauche">
       <div id="info">
-        <p id="round">Round : </p>
+        <p id="wlcm">Bienvenue <?= htmlspecialchars($currentPlayer); ?> !</p>
+        <p id="artist">Dessinateur : <?= htmlspecialchars($game['artist']); ?></p>
+        <p id="round">Round : 1</p>
         <p id="timer">Temps restant : </p>
-        <p id="artist">Dessinateur : </p>
       </div>
 
       <div id="chat">
@@ -26,7 +36,6 @@
     </div>
 
     <canvas id="drawingCanvas" width="600" height="450"></canvas>
-    <script src="game.js" defer></script>
 
     <div class="panel-droit">
       <div class="palette">
@@ -39,16 +48,12 @@
         <button class="bouton-couleur" id="marron"></button>
       </div>
       <div id="erasers">
-        <button id="erase-button"><img class="eraser-img" src="media/eraser.png" height="40" width="40"></button>
-        <button id="reset-button"><img class="eraser-img" src="media/reset.png" height="40" width="40"></button>
+        <button id="erase-button"><img class="eraser-img" src="../media/eraser.png" height="40" width="40"></button>
+        <button id="reset-button"><img class="eraser-img" src="../media/reset.png" height="40" width="40"></button>
       </div>
     </div>
+
+    <script src="js/game.js"></script>
 </body>
 
 </html>
-
-<?php
-$currentPlayer = $_GET['name'] ?? 'Anonymous';
-$game = json_decode(file_get_contents("data/game_status.json"), true);
-$isArtist = $currentPlayer == $game['artist'];
-?>
