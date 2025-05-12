@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //////// functions for drawing ////////
 
-  // easier to manipulate colors
+  // conversion to make it easier to manipulate colors
   function rgbToHex(col) {
     if (col.charAt(0) == 'r') {
       col = col.replace('rgb(', '').replace(')', '').split(',');
