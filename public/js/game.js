@@ -133,3 +133,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 500);
 
 });
+
+
+window.addEventListener("beforeunload", () =>{
+  fetch("../server/player_dc.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(playerName)
+  })
+});

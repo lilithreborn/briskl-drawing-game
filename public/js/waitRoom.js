@@ -1,12 +1,14 @@
+var ingame = false ;
+
 document.addEventListener("DOMContentLoaded", () => {
 
-  fetch("../server/reset.php");
 
   async function checkGameStatus() {
     const res = await fetch('../data/game_status.json');
     const status = await res.json();
 
     if (status.started) {
+      ingame = true ;
       window.location.href = `game.php?name=${encodeURIComponent(playerName)}`;
     }
   }
@@ -40,6 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function startGame() {
+    checkGameStatus();
+    ingame = true ;
     await fetch('../server/start_game.php');
     window.location.href = `game.php?name=${encodeURIComponent(playerName)}`;
   }
@@ -51,5 +55,18 @@ document.addEventListener("DOMContentLoaded", () => {
     checkPlayers();
     checkGameStatus();
   }, 500);
+  
+
 
 });
+
+
+  window.addEventListener("beforeunload", () =>{
+    checkGameStatus();
+    if (!ingame){
+    fetch("../server/player_dc.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(playerName)
+    })}
+  });
