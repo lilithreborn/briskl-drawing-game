@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentStroke.push({ x, y });
 
     // simulating real-time save for every point (not ideal for performance, but works for now)
-    sendStroke(currentStroke, currentColor, ctx.lineWidth);  // send accumulated points
+    //sendStroke(currentStroke, currentColor, ctx.lineWidth);  // send accumulated points
   }
 
   // saving drawn strokes (artist side) => simulating real-time
@@ -185,8 +185,6 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const res = await fetch("../data/strokes.json?" + Date.now());
       const strokes = await res.json();
-
-      console.log("strokes : " + strokes);
 
       if (strokes.length == 0) {
         // in case of canvas reset
