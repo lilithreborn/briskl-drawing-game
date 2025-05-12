@@ -10,6 +10,4 @@ file_put_contents("../data/game_status.json", json_encode($gameStatus));
 
 
 //file_put_contents("../data/players.json", json_encode([]));
-
-echo "Jeu réinitialisé";
 ?>
