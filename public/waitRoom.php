@@ -17,6 +17,8 @@ if (!in_array($name, $players)) {
   $players[] = $name;
   file_put_contents($filename, json_encode($players));
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +37,7 @@ if (!in_array($name, $players)) {
   <h2>Salle d'attente</h2>
   <p>Bienvenue, <?= htmlspecialchars($name); ?>. En attente d'autres joueurs...</p>
   <ul id="players"></ul>
-  <button id="start-game" disabled>Commencer le jeu</button>
+  <button class="button" id="start-game" disabled>Commencer le jeu</button>
 
   <script src="js/waitRoom.js" defer></script>
 </body>
