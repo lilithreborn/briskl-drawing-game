@@ -10,7 +10,7 @@ foreach ($players as $p) {
   }
   $i++;
 }
-file_put_contents("../data/players.json", json_encode(array_values($players)));
+file_put_contents("../data/players.json", json_encode(array_values($players))); //remove disconnected player
 
 if (!$players) {
   $gameStatus = [
@@ -19,7 +19,9 @@ if (!$players) {
     "word" => null,
     "timer" => 60
   ];
-  file_put_contents("../data/game_status.json", json_encode($gameStatus));
+  file_put_contents("../data/game_status.json", json_encode($gameStatus)); //reset game status
+  file_put_contents("../data/chat.json", json_encode([])); //reset chat
+  file_put_contents("../data/strokes.json", json_encode([])); //reset canvas
   //file_put_contents("../data/players.json", json_encode([]));
 
   echo "Jeu réinitialisé";

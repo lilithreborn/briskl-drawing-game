@@ -8,8 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetbtn = document.getElementById("reset-button");
   const wordHtml = document.getElementById("word");
   const colorBtns = Array.from(document.getElementsByClassName("bouton-couleur"));
+  const chat = document.getElementById("chat");
   let isArtist = false;
-
+  let autoscroll = true;
 
   //////// global variables for the drawing ////////
   const canvas = document.getElementById("drawingCanvas");
@@ -134,11 +135,21 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       // auto-scroll to the bottom of the messages (cool stuff lol)
+      if(autoscroll){
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
     } catch (err) {
       console.error("Failed to fetch messages:", err);
     }
   }
+
+  chat.addEventListener("mousedown", () =>{
+    autoscroll = false;
+  });
+
+  chat.addEventListener("mouseup",() =>{
+    autoscroll = true;
+  });
 
   //////// functions for drawing ////////
 
