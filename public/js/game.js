@@ -3,12 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
   //////// global variables for the users ///////
   const messagesDiv = document.getElementById("messages");
   const chatinput = document.getElementById("chat-input");
+  const wordHtml = document.getElementById("word");
   const sndbtn = document.getElementById("send");
   const eraser = document.getElementById("erase-button");
   const resetbtn = document.getElementById("reset-button");
-  const wordHtml = document.getElementById("word");
   const colorBtns = Array.from(document.getElementsByClassName("bouton-couleur"));
   let isArtist = false;
+
+  ///////// global variables for game status //////
+  const artistHtml = document.getElementById("artist");
+  const roundHtml = document.getElementById("round");
+  const scoreHtml = document.getElementById("score");
 
 
   //////// global variables for the drawing ////////
@@ -25,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ////// polling for user updates, messages and saving strokes /////
   setInterval(() => {
     checkPlayers();
-    //checkStatus();
+    checkStatus();
   }, 500);
 
   setInterval(() => {
@@ -82,6 +87,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  async function checkStatus() {
+    let res = await fetch("../data/game_status.json?" + Date.now())
+    let status = await res.json();
+
+    roundHtml.innerHTML = "Round : " + status.round;
+    scoreHtml.innerHTML = "Ton Score : " + status.scores[PlayerName];
+    artistHtml.innerHTML = "Dessinateur : " + status.artist;
+
+    if (status.over == true) {
+      scores = status.score;
+      winner = status.winner;
+
+      // Store in localStorage or pass through URL (if small)
+      localStorage.setItem("scores", JSON.stringify(scores));
+      localStorage.setItem("winner", winner);
+
+      // Redirect
+      window.location.href = "winner.php";
+
+    }
+  }
+
   // sending guesses : display in chat area + checking answer
   sndbtn.addEventListener("click", () => {
     let ans = chatinput.value.toLowerCase().trim();
@@ -100,7 +127,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let word = status.word.toLowerCase();
 
     if (ans == word) {
-      window.location.href = `won.html?name=${encodeURIComponent(playerName)}`;
+      await fetch("../server/update_game.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ winner: playerName, artist: status.artist, word: status.word })
+      });
     }
   }
 

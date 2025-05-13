@@ -1,1 +1,1 @@
-{"started":false,"artist":null,"word":null,"timer":60}
+{"started":true,"artist":"test","word":"Lunettes","timer":60,"usedwords":["\u00c9cureuil","P\u00e9tanque","Lunettes"],"usedartists":["joueur2","lilith","test"],"round":4,"scores":{"lilith":1,"test":2,"joueur2":0},"winner":"test","over":true}
