@@ -10,6 +10,7 @@ foreach ($players as $p) {
   }
   $i++;
 }
+log($players);
 file_put_contents("../data/players.json", json_encode($players));
 
 if (!$players) {
