@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const startBtn = document.getElementById('start-game');
 
     if (players.length >= 2) {
-      if (players[0] === playerName) {
+      if (players[0] == playerName) {
         startBtn.disabled = false;
         startBtn.textContent = "Commencer le jeu (vous êtes l’hôte)";
       } else {

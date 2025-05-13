@@ -63,21 +63,20 @@ p {
   font-size: 1.2em;
   border: 2px solid #333;
   border-radius: 20px;
-  background-color: #f1c40f;
   color: #000;
-  cursor: not-allowed;
   transition: 0.2s;
   opacity: 0.6;
-}
-
-/* Bouton activé */
-#start-game.enabled {
   cursor: pointer;
   opacity: 1;
   background-color: #f39c12;
 }
 
-#start-game.enabled:hover {
+#start-game:disabled {
+  cursor: not-allowed;
+  background-color: #f39d1291;
+}
+
+#start-game:hover {
   transform: scale(1.05);
 }
 
@@ -87,7 +86,7 @@ p {
   box-sizing: border-box;
   color: #000000;
   display: flex;
-  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
   font-weight: 700;
   justify-content: center;
