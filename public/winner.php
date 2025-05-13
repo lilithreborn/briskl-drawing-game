@@ -9,8 +9,12 @@
 </head>
 
 <body>
-  <h1>🏆 Winner: <span id="winner-name"></span></h1>
-  <ul id="score-list"></ul>
+  <h1>🏆 Winner : <span id="winner-name"></span></h1>
+  <div id="scores">
+    <h2>Scores : </h2>
+    <ul id="score-list"></ul>
+  </div>
 
-  <script src="winner.js"></script>
+
+  <script src="js/winner.js"></script>
 </body>

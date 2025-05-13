@@ -92,20 +92,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let status = await res.json();
 
     roundHtml.innerHTML = "Round : " + status.round;
-    scoreHtml.innerHTML = "Ton Score : " + status.scores[PlayerName];
+    scoreHtml.innerHTML = "Ton Score : " + status.scores[playerName];
     artistHtml.innerHTML = "Dessinateur : " + status.artist;
 
     if (status.over == true) {
       scores = status.score;
       winner = status.winner;
 
-      // Store in localStorage or pass through URL (if small)
-      localStorage.setItem("scores", JSON.stringify(scores));
-      localStorage.setItem("winner", winner);
-
-      // Redirect
+      // Redirect to winning page
       window.location.href = "winner.php";
-
     }
   }
 
