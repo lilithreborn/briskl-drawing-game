@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let isArtist = false;
 
 
-  //////// global variables for he drawing ////////
+  //////// global variables for the drawing ////////
   const canvas = document.getElementById("drawingCanvas");
   const ctx = canvas.getContext("2d");
   let drawing = false;
@@ -22,15 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, 600, 450);
 
-  ////// polling for artist update and saving strokes /////
+  ////// polling for user updates, messages and saving strokes /////
   setInterval(() => {
     checkPlayers();
     //checkStatus();
   }, 500);
 
+  setInterval(() => {
+    fetchMessages();
+  }, 200);
+
   let fetchInterval = setInterval(() => {
     fetchStrokes();
-  }, 300);
+  }, 200);
   //////////
 
 
@@ -64,19 +68,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // fetching strokes : setting interval only for non-artists
     if (!isArtist && !fetchInterval) {
-      // Start interval ONLY for non-artists, and only once
+      // start interval ONLY for non-artists
       fetchInterval = setInterval(() => {
         fetchStrokes();
       }, 200);
     }
 
     if (isArtist && fetchInterval) {
-      // Stop interval if player becomes artist
+      // stop interval if player becomes artist
       clearInterval(fetchInterval);
       fetchInterval = null;
     }
   }
 
+  // sending guesses : display in chat area + checking answer
+  sndbtn.addEventListener("click", () => {
+    let ans = chatinput.value.toLowerCase().trim();
+    if (ans !== "") {
+      checkAnswers(ans);
+      sendGuess(ans);
+      chatinput.value = "";
+    }
+  });
+
+  // check user guesses to see if they match the word being drawn
   async function checkAnswers(ans) {
     let res = await fetch("../data/game_status.json?" + Date.now())
     let status = await res.json();
@@ -88,10 +103,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  sndbtn.addEventListener("click", () => {
-    let ans = chatinput.value.toLowerCase();
-    checkAnswers(ans);
-  })
+  // Function to send a guess to the server
+  async function sendGuess(guess) {
+    try {
+      await fetch("../server/save_guess.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: guess, player: playerName })
+      });
+    } catch (err) {
+      console.error("Failed to send guess:", err);
+    }
+  }
+
+  // Function to fetch and display messages
+  async function fetchMessages() {
+    try {
+      const res = await fetch("../data/chat.json");
+      const messages = await res.json();
+
+      // clear the message area
+      messagesDiv.innerHTML = "";
+
+      // display each message
+      messages.forEach(msg => {
+        const msgDiv = document.createElement("div");
+        msgDiv.textContent = `${msg.player}: ${msg.message}`;
+        messagesDiv.appendChild(msgDiv);
+      });
+
+      // auto-scroll to the bottom of the messages
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    } catch (err) {
+      console.error("Failed to fetch messages:", err);
+    }
+  }
 
   //////// functions for drawing ////////
 
