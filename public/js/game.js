@@ -1,15 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   //////// global variables for the users ///////
+  const chatinput = document.getElementById("chat-input");
   const sndbtn = document.getElementById("send");
   const eraser = document.getElementById("erase-button");
   const resetbtn = document.getElementById("reset-button");
-  const word = document.getElementById("word");
+  const wordHtml = document.getElementById("word");
   const colorBtns = Array.from(document.getElementsByClassName("bouton-couleur"));
   let isArtist = false;
 
 
-  //////// global variables for the drawing ////////
+  //////// global variables for he drawing ////////
   const canvas = document.getElementById("drawingCanvas");
   const ctx = canvas.getContext("2d");
   let drawing = false;
@@ -19,8 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // make canvas white for eraser to work (? might fix later)
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, 600, 450);
-
-
 
   ////// polling for artist update and saving strokes /////
   setInterval(() => {
@@ -44,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (playerName == status.artist) {
       isArtist = true;
       sndbtn.disabled = true;
-      word.innerHTML = "Vous êtes l'artiste ! Vous devez dessiner le mot : " + status.word;
+      wordHtml.innerHTML = "Vous êtes l'artiste ! Vous devez dessiner le mot : " + status.word;
       eraser.disabled = false;
       resetbtn.disabled = false;
       colorBtns.forEach(col => {
@@ -54,14 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
     else {
       isArtist = false;
       sndbtn.disabled = false;
-      word.innerHTML = status.artist + " est l'artiste ! Vous devez deviner le mot qu'il/elle dessine.";
+      wordHtml.innerHTML = status.artist + " est l'artiste ! Vous devez deviner le mot qu'il/elle dessine.";
       eraser.disabled = true;
       resetbtn.disabled = true;
       colorBtns.forEach(col => {
         col.disabled = true;
       });
     }
-
 
     // fetching strokes : setting interval only for non-artists
     if (!isArtist && !fetchInterval) {
@@ -78,7 +76,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  async function checkAnswers(ans) {
+    let res = await fetch("../data/game_status.json?" + Date.now())
+    let status = await res.json();
 
+    let word = status.word.toLowerCase();
+
+    if (ans == word) {
+      window.location.href = `won.html?name=${encodeURIComponent(playerName)}`;
+    }
+  }
+
+  sndbtn.addEventListener("click", () => {
+    let ans = chatinput.value.toLowerCase();
+    checkAnswers(ans);
+  })
 
   //////// functions for drawing ////////
 
