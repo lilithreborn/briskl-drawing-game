@@ -26,8 +26,9 @@ $game = json_decode(
       <div id="info">
         <p id="wlcm">Bienvenue <?= htmlspecialchars($currentPlayer); ?> !</p>
         <p id="artist">Dessinateur : <?= htmlspecialchars($game['artist']); ?></p>
-        <p id="round">Round : 1</p>
+        <p id="round">Round : </p>
         <p id="timer">Temps restant : </p>
+        <p id="score">Ton score : </p>
       </div>
 
       <div id="chat">

@@ -17,7 +17,12 @@ if (!$players) {
     "started" => false,
     "artist" => null,
     "word" => null,
-    "timer" => 60
+    "timer" => 60,
+    "usedwords" => [],
+    "usedartists" => [],
+    "round" => 0,
+    "scores" => [],
+    "winner" => null
   ];
   file_put_contents("../data/game_status.json", json_encode($gameStatus)); //reset game status
   file_put_contents("../data/chat.json", json_encode([])); //reset chat
