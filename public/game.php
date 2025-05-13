@@ -10,7 +10,7 @@ $game = json_decode(
 <head>
   <meta charset="UTF-8">
   <title>Jeu</title>
-  <link rel="stylesheet" type="text/css" media="screen" href="style/chat.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="style/game.css">
 </head>
 
 <body>

@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const wordHtml = document.getElementById("word");
   const colorBtns = Array.from(document.getElementsByClassName("bouton-couleur"));
   const chat = document.getElementById("chat");
+  const timer = document.getElementById("timer");
   let isArtist = false;
   let autoscroll = true;
 
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setInterval(() => {
     fetchMessages();
-  }, 200);
+  }, 100);
 
   let fetchInterval = setInterval(() => {
     fetchStrokes();
@@ -116,6 +117,17 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       console.error("Failed to send guess:", err);
     }
+  }
+
+  // Function For Timer
+  async function updateTimer() {
+     try {
+      const res = await fetch("../data/game_status.json?" + Date.now());
+      const game = await res.json();
+      timer.innerHTML = `Temps restant : ${game.timer}`
+     }catch(err){
+      console.error("Timer Failure :", err);
+     }
   }
 
   // Function to fetch and display messages in the chat

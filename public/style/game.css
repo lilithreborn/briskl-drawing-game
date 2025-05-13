@@ -1,163 +1,193 @@
 @import url('chillax.css');
 
+/* Reset de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
-  background-color: #20adfe;
-  font-family: Chillax-Regular, Arial, Helvetica, sans-serif
+  background: linear-gradient(to bottom, #87cefa, #ffffff);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: #333;
 }
 
-#briskl {
-  height: 100px;
-}
-
-#crayon {
-  height: 40px;
-  padding-bottom: 30px;
-}
-
+/* En-tête avec les gifs */
 #gif {
-  text-align: center;
-  border-radius: 20px;
-  background-color: #ffd11a;
-  box-shadow: 7px 7px #00000069;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 10px;
 }
 
-h2,
+#gif img {
+  height: 80px;
+}
+
+/* Titre */
+h2 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #fff;
+  background-color: #444;
+  padding: 10px 25px;
+  border-radius: 15px;
+  text-shadow: 2px 2px #000;
+}
+
+/* Mot à deviner (visible seulement pour le dessinateur) */
 #word {
-  text-align: center;
-  text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
-    1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #000;
+  font-weight: bold;
 }
 
+/* Conteneur principal */
 .game-container {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding-left: 20px;
-  padding-right: 20px;
+  justify-content: center;
   gap: 30px;
+  width: 100%;
+  max-width: 1200px;
 }
 
+/* Panel gauche : infos + chat */
 .panel-gauche {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
+/* Infos joueur */
 #info {
-  border-radius: 20px;
-  background-color: #ffd11a;
-  box-shadow: 7px 7px #00000069;
-  padding: 20px;
+  background-color: #fff;
+  padding: 15px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+#info p {
+  margin-bottom: 10px;
+  font-size: 1em;
+}
+
+/* Chat */
 #chat {
-  border-radius: 15px;
-  padding: 15px;
-  width: 180px;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 10px;
+  height: 300px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 }
 
 #messages {
-  background-color: #fff;
-  height: 200px;
-  overflow-y: scroll;
-  border: 1px solid #ffd11a;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 5px;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 5px;
+  margin-bottom: 10px;
 }
 
 #chat-input {
-  border-radius: 20px;
-  background-color: #fdd53473;
-  box-shadow: 7px 7px #00000069;
   padding: 8px;
-  margin-bottom: 8px;
+  font-size: 1em;
+  border-radius: 8px;
+  border: 1px solid #333;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 #send {
-  border-radius: 20px;
-  padding: 10px;
-  box-shadow: 7px 7px #00000069;
-  background-color: #ffd11a;
-  display: table;
-  margin: 0 auto;
-}
-
-canvas {
-  height: 450px;
-  width: 600px;
-  background-color: #ffffff;
-  box-shadow: 7px 7px #00000069;
-  border: solid 5px #ffd11a;
+  padding: 8px;
+  border: none;
+  background-color: #f1c40f;
+  color: #000;
   border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
+#send:hover {
+  transform: scale(1.05);
+}
 
+/* Canevas */
+canvas#drawingCanvas {
+  border: 3px solid #222;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Panel droit : palette + outils */
+.panel-droit {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Palette de couleurs */
 .palette {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
-  margin-bottom: 15px;
-  border-radius: 20px;
-  background-color: #ffd11a;
-  box-shadow: 7px 7px #00000069;
-  padding: 20px;
 }
 
 .bouton-couleur {
-  width: 30px;
-  height: 30px;
-  border: 2px solid #000;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
+  border: 2px solid #444;
   cursor: pointer;
-  outline: none;
+  transition: transform 0.2s;
 }
 
-.bouton-couleur.selected {
-  border: 3px solid #20adfe;
+.bouton-couleur:hover {
+  transform: scale(1.2);
 }
 
+#rouge { background-color: red; }
+#orange { background-color: orange; }
+#jaune { background-color: yellow; }
+#vert { background-color: green; }
+#bleu { background-color: blue; }
+#noir { background-color: black; }
+#marron { background-color: brown; }
+
+/* Gomme et reset */
 #erasers {
   display: flex;
-  flex-direction: row;
-  gap: 10px;
-  margin-bottom: 15px;
-  padding: 20px;
+  gap: 15px;
+  margin-top: 20px;
 }
 
-#eraser-button,
-#reset-button {
-  width: 50px;
-  height: 50px;
-  background-color: #20adfe;
+#erase-button, #reset-button {
+  background: #fff;
+  border: 2px solid #333;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
-#rouge {
-  background-color: #ff0000;
+#erase-button:hover, #reset-button:hover {
+  transform: scale(1.1);
 }
 
-#orange {
-  background-color: #ff7f00;
-}
-
-#jaune {
-  background-color: #FFFF00;
-}
-
-#vert {
-  background-color: #008000;
-}
-
-#bleu {
-  background-color: #0000FF;
-}
-
-#noir {
-  background-color: #000;
-}
-
-#marron {
-  background-color: #A52A2A;
+.eraser-img {
+  display: block;
 }
