@@ -1,11 +1,18 @@
 <?php
 $dc = json_decode(file_get_contents("php://input"), true);
 $players = json_decode(file_get_contents("../data/players.json"), true);
-if (($key = array_search($dc, $players)) !== false) {
-  unset($players[$key]);
+
+$i = 0;
+foreach ($players as $p) {
+  if ($p == $dc) {
+    unset($players[$i]);
+    break;
+  }
+  $i++;
 }
 file_put_contents("../data/players.json", json_encode($players));
-if (!$players){
+
+if (!$players) {
   $gameStatus = [
     "started" => false,
     "artist" => null,
@@ -14,7 +21,7 @@ if (!$players){
   ];
   file_put_contents("../data/game_status.json", json_encode($gameStatus));
   //file_put_contents("../data/players.json", json_encode([]));
-  
+
   echo "Jeu réinitialisé";
 }
 ?>
