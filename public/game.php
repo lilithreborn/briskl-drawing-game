@@ -31,6 +31,7 @@ $game = json_decode(
       </div>
 
       <div id="chat">
+        <div id="messages"></div>
         <input type="text" id="chat-input" placeholder="Propose un mot...">
         <button id="send">Envoyer</button>
       </div>

@@ -58,6 +58,13 @@ h2,
   flex-direction: column;
 }
 
+#messages {
+  height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
 #chat-input {
   border-radius: 20px;
   background-color: #fdd53473;

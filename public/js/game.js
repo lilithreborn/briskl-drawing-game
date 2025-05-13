@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   //////// global variables for the users ///////
+  const messagesDiv = document.getElementById("messages");
   const chatinput = document.getElementById("chat-input");
   const sndbtn = document.getElementById("send");
   const eraser = document.getElementById("erase-button");
@@ -239,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-window.addEventListener("beforeunload", () =>{
+window.addEventListener("beforeunload", () => {
   fetch("../server/player_dc.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
