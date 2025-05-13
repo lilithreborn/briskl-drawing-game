@@ -4,6 +4,7 @@ $players = json_decode(file_get_contents("../data/players.json"), true);
 if (($key = array_search($dc, $players)) !== false) {
   unset($players[$key]);
 }
+file_put_contents("../data/players.json", json_encode($players));
 if (!$players){
   $gameStatus = [
     "started" => false,
@@ -18,5 +19,4 @@ if (!$players){
   
   echo "Jeu réinitialisé";
 }
-file_put_contents("../data/players.json", json_encode($players));
 ?>

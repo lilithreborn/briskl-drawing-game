@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Veuillez entrer un nom valide !");
       return;
     }
-    const res = await fetch('../data/game_status.json');
+    const res = await fetch("../data/game_status.json?" + Date.now());
     const status = await res.json();
 
     if (status.started) {

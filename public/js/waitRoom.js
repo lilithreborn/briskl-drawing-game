@@ -4,10 +4,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   async function checkGameStatus() {
-    const res = await fetch('../data/game_status.json');
+    const res = await fetch("../data/game_status.json?" + Date.now());
     const status = await res.json();
-
+    console.log("checking game status");
+    console.log("game status : " + `${status.started}`);
     if (status.started) {
+      console.log("Entering game as guest");
       ingame = true ;
       window.location.href = `game.php?name=${encodeURIComponent(playerName)}`;
     }
@@ -42,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function startGame() {
-    checkGameStatus();
     ingame = true ;
     await fetch('../server/start_game.php');
     window.location.href = `game.php?name=${encodeURIComponent(playerName)}`;
@@ -55,14 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
     checkPlayers();
     checkGameStatus();
   }, 500);
-  
-
-
 });
 
 
   window.addEventListener("beforeunload", () =>{
-    checkGameStatus();
     if (!ingame){
     fetch("../server/player_dc.php", {
       method: "POST",
