@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("drawingCanvas");
   const ctx = canvas.getContext("2d");
   let drawing = false;
-  let currentColor = "#000000"; // Default brush color is black
+  let currentColor = "#000000"; // default brush color is black
   let isEraser = false;
   let currentStroke = []; // saving strokes as clouds of points to draw continuous lines
   // make canvas white for eraser to work (? might fix later)
@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   ///////// functions for users ////////
 
+  // checking user updates (like artist change)
   async function checkPlayers() {
     let res = await fetch("../data/game_status.json?" + Date.now())
     let status = await res.json();
@@ -103,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Function to send a guess to the server
+  // function to send a guess to the server
   async function sendGuess(guess) {
     try {
       await fetch("../server/save_guess.php", {
@@ -116,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Function to fetch and display messages
+  // Function to fetch and display messages in the chat
   async function fetchMessages() {
     try {
       const res = await fetch("../data/chat.json");
@@ -132,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
         messagesDiv.appendChild(msgDiv);
       });
 
-      // auto-scroll to the bottom of the messages
+      // auto-scroll to the bottom of the messages (cool stuff lol)
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     } catch (err) {
       console.error("Failed to fetch messages:", err);
@@ -141,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //////// functions for drawing ////////
 
-  // conversion to make it easier to manipulate colors
+  // conversion to make it easier to manipulate colors (thank you stackoverflow)
   function rgbToHex(col) {
     if (col.charAt(0) == 'r') {
       col = col.replace('rgb(', '').replace(')', '').split(',');
@@ -223,8 +224,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // store the point in the current stroke
     currentStroke.push({ x, y });
 
-    // simulating real-time save for every point (not ideal for performance, but works for now)
-    //sendStroke(currentStroke, currentColor, ctx.lineWidth);  // send accumulated points
+    // simulating real-time save for every point (not ideal for performance, changed it to send full strokes in stopDrawing)
+    //sendStroke(currentStroke, currentColor, ctx.lineWidth);
   }
 
   // saving drawn strokes (artist side) => simulating real-time
@@ -261,6 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // replicating stroke on canvas (non-artist side)
   function drawStroke(stroke) {
     ctx.strokeStyle = stroke.color;
     ctx.lineWidth = stroke.width;
@@ -270,9 +272,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const points = stroke.points;
 
     if (points.length > 0) {
-      ctx.moveTo(points[0].x, points[0].y); // Move to the first point
+      ctx.moveTo(points[0].x, points[0].y); // move to the first point
 
-      // Draw lines connecting each point in the stroke
+      // draw continuous lines connecting each point in the stroke
       points.forEach((point, index) => {
         if (index > 0) {
           ctx.lineTo(point.x, point.y);
@@ -285,7 +287,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
+// checks if users leave the page to take them outof users list, 
+// once everyone leaves game status is reset to default
 window.addEventListener("beforeunload", () => {
   fetch("../server/player_dc.php", {
     method: "POST",

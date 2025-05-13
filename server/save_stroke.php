@@ -8,7 +8,7 @@ if (!$data || !isset($data['points'])) {
 
 $filename = "../data/strokes.json";
 
-// Acquire lock-safe file write
+// acquire lock-safe file write
 $fp = fopen($filename, "c+"); // open for reading and writing, create if not exists
 if (flock($fp, LOCK_EX)) { // acquire exclusive lock
   $existing = stream_get_contents($fp);
@@ -20,7 +20,6 @@ if (flock($fp, LOCK_EX)) { // acquire exclusive lock
 
   $strokes[] = $data;
 
-  // Reset file and write clean
   ftruncate($fp, 0);
   rewind($fp);
   fwrite($fp, json_encode($strokes));

@@ -1,4 +1,4 @@
-var ingame = false ;
+var ingame = false;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("game status : " + `${status.started}`);
     if (status.started) {
       console.log("Entering game as guest");
-      ingame = true ;
+      ingame = true;
       window.location.href = `game.php?name=${encodeURIComponent(playerName)}`;
     }
   }
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function startGame() {
-    ingame = true ;
+    ingame = true;
     await fetch('../server/start_game.php');
     window.location.href = `game.php?name=${encodeURIComponent(playerName)}`;
   }
@@ -59,11 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-  window.addEventListener("beforeunload", () =>{
-    if (!ingame){
+window.addEventListener("beforeunload", () => {
+  if (!ingame) {
     fetch("../server/player_dc.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(playerName)
-    })}
-  });
+    })
+  }
+});
