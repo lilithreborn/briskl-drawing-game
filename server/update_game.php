@@ -8,7 +8,8 @@ if (!$data || !isset($data['winner']) || !isset($data['artist']) || !isset($data
 
 $filename = "../data/game_status.json";
 $gameStatus = json_decode(file_get_contents($filename), true);
-
+file_put_contents("../data/strokes.json", "[]");
+echo "Canvas reset.";
 
 if (!isset($gameStatus['scores'][$data['winner']])) {
   $gameStatus['scores'][$data['winner']] = 0;

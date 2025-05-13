@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const timer = document.getElementById("timer");
   let isArtist = false;
   let autoscroll = true;
+  let win = false ;
 
   ///////// global variables for game status //////
   const artistHtml = document.getElementById("artist");
@@ -30,12 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, 600, 450);
 
-  ////// polling for user updates, messages and saving strokes /////
+  ////// polling for user updates, messages timer and saving strokes /////
   setInterval(() => {
     checkPlayers();
     checkStatus();
   }, 500);
 
+ /* setInterval(()=>{
+    updateTimer();
+  },150);*/
   setInterval(() => {
     fetchMessages();
   }, 100);
@@ -101,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (status.over == true) {
       scores = status.score;
       winner = status.winner;
-
+      win = true;
       // Redirect to winning page
       window.location.href = "winner.php";
     }
@@ -144,17 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       console.error("Failed to send guess:", err);
     }
-  }
-
-  // Function For Timer
-  async function updateTimer() {
-     try {
-      const res = await fetch("../data/game_status.json?" + Date.now());
-      const game = await res.json();
-      timer.innerHTML = `Temps restant : ${game.timer}`
-     }catch(err){
-      console.error("Timer Failure :", err);
-     }
   }
 
   // Function to fetch and display messages in the chat
@@ -338,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // checks if users leave the page to take them outof users list, 
-// once everyone leaves game status is reset to default
+// once everyone leaves game status is to default
 window.addEventListener("beforeunload", () => {
   fetch("../server/player_dc.php", {
     method: "POST",

@@ -15,12 +15,12 @@ $gameStatus = [
   "started" => true,
   "artist" => $artist,
   "word" => $word,
-  "timer" => 60,
   "usedwords" => [],
   "usedartists" => [],
   "round" => 1,
   "scores" => $scores,
-  "winner" => null
+  "winner" => null,
+  "over" => false
 ];
 
 file_put_contents("../data/game_status.json", json_encode($gameStatus));

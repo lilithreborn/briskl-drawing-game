@@ -18,4 +18,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error loading scores:", err);
     document.body.innerHTML = "<p>Failed to load game results.</p>";
   }
+
+  await fetch ("../server/hard_reset.php");
 });
